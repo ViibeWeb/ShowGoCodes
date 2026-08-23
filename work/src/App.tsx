@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
-import {
+import Discover from '@/components/Discover';
+import { 
   ArrowLeft,
   ArrowRight,
   CalendarDays,
@@ -235,6 +236,7 @@ function App() {
         <nav className={`desktop-nav ${menuOpen ? 'nav-open' : ''}`} aria-label="Main navigation">
           <a href="#top" onClick={() => { setMenuOpen(false); closeToList(); }}>Home</a>
           <a href="#events" onClick={() => { setMenuOpen(false); closeToList(); }}>Events</a>
+          <a href="#discover" onClick={() => { setMenuOpen(false); closeToList(); }}>Discover</a>
           <a href="#about" onClick={() => { setMenuOpen(false); closeToList(); }}>About</a>
         </nav>
         <button className="menu-button" type="button" onClick={() => setMenuOpen((open) => !open)} aria-label="Toggle navigation">
@@ -262,14 +264,14 @@ function App() {
                 <div className="section-kicker"><span /> Live near you</div>
                 <h2>Upcoming events</h2>
               </div>
-              <button className="date-button" type="button"><CalendarDays size={16} /> Browse dates <ChevronDown size={15} /></button>
+              <button className="date-button" type="button" onClick={() => document.getElementById('discover')?.scrollIntoView({ behavior: 'smooth' })}><CalendarDays size={16} /> Browse dates <ChevronDown size={15} /></button>
             </div>
             <div className="toolbar">
               <div className="category-tabs" aria-label="Filter events by category">
                 {categories.map((category) => <button key={category} className={activeCategory === category ? 'active' : ''} type="button" onClick={() => setActiveCategory(category)}>{category}</button>)}
               </div>
               <label className="search-box"><Search size={16} /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Search events" aria-label="Search events" /></label>
-              <button className="filter-button" type="button" aria-label="More filters"><SlidersHorizontal size={17} /></button>
+              <button className="filter-button" type="button" aria-label="More filters" onClick={() => document.getElementById('discover')?.scrollIntoView({ behavior: 'smooth' })}><SlidersHorizontal size={17} /></button>
               <button className="create-button" type="button" onClick={openCreateForm}>
                 <Plus size={17} /> Create Event
               </button>
@@ -302,6 +304,8 @@ function App() {
               )) : <div className="empty-state"><Search size={22} /><h3>No events found</h3><p>Try another search or explore every category.</p></div>}
             </div>
           </section>
+
+          <Discover />
 
           <section className="about-strip" id="about">
             <span className="about-icon"><Music2 size={18} /></span>
